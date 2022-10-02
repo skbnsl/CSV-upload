@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body{
+                    text-align:center;
+          }
+        </style>
+        
+          <title>Document</title>
+</head>
+<body>
+          <main>
+                    <header>
+                              <i>
+                                  <a href="/">Home</a> 
+                             
+                              <form id="search-form" >
+                                        <i>
+                                                  <input type="text" id="searchItem" placeholder ="Search">
+                                                  <button id="go" type="button" onclick="searchfunc()">Go</button>
+                                        </i>
+                              </form>
+                              
+                              </i>
+                    </header>
+                    <div>
+                              <table>
+                                        <tr>
+                                             <% for(const[key, value] of Object.entries(csvData[0])){ %> 
+                                                <th>  <%= key %> </th>  
+                                             <% } %>                                                      
+                                        </tr>
+
+                                        <% for(let i=0; i<csvData.length;i++){ %> 
+                                            <tr id="row-<%= i %>">
+                                                     <% for(const[key, value] of Object.entries(csvData[i])){ %>
+                                                               <td class="column"> <%= value %> </td>
+                                                     <% } %>          
+                                            </tr>      
+                                        <% } %>
+                              </table>
+                    </div>
+          </main>
+       
+          <script type = "text/javascript">
+            
+          function searchfunc(){
+          var rows = document.getElementsByTagName('tr');
+          for(let i =0; i<rows.length; i++){
+                    rows[i].style.backgroundColor = 'white';
+          }
+
+        
+          let name = document.getElementById('search-form').elements['searchItem'].value;
+          let pattern = name.toLowerCase();
+          let targetId = "";
+
+          let divs = document.getElementsByClassName('column');
+
+        
+
+          for(let i=0; i<divs.length; i++){
+                    let index = divs[i].innerText.toLowerCase().indexOf(pattern);
+                    if(index != -1){
+                              targetId = divs[i].parentNode.id;
+                              document.getElementById(targetId).scrollIntoView();
+                              document.getElementById(targetId).style.backgroundColor = '#FF0000';
+                              break;
+                    }
+          }
+}
+
+
+          </script>
+
+
+</body>
+</html>

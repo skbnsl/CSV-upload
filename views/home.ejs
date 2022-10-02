@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>CSV-Reader</title>
+          <style>
+            body{
+                  text-align: center;
+            }
+          </style>
+</head>
+<body>
+     <h2>CSV Reader</h2>
+
+    <form action="../uploadfile/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="upload_file" placeholder="upload only csv file" accept=".csv">
+          <button type="submit"> upload </button>
+    </form>
+    <br><br>
+    <div>
+          <% for(let i = 0; i < files.length; i++){ %> 
+             <div>
+                  <i> <%= files[i] %> </i> 
+                  &nbsp &nbsp &nbsp &nbsp
+                  <i><button><a id="open" href="/uploadfile/open/?index=<%= i %>">open</a></button></i>
+                  <i><button><a href="/uploadfile/delete?index=<%=i%>">Delete</a></button></i> 
+             </div>          
+             <br><br>
+          <% } %>
+    </div>
+
+</body>
+</html>
