@@ -24,8 +24,24 @@ app.use('/uploads', express.static(__dirname +'/uploads'));
 app.use('/', require('./routes/index'));
 
 //check server
-app.listen(port, function(e){
-          if(e){console.log('error in server running',e); return;}
+app.listen(port, function(err){
+          if(err){console.log('error in server running',e); return;}
+          //delete the uploaded file after restarting the server
+          try {
+                    let files = fs.readdirsync(path.join(__dirname,'/uploads'));
+                    if(files.length >  0){
+                              for(let i=0; i<files.length; i++){
+                                        var filePath = path.join(__dirname, '/uploads',files[i]);
+                                        if(fs.statSync(filePath).isFile()){
+                                                  fs.unlinkSync(filePath);
+                                        }
+                              }
+                    }
+          } catch (error) {
+                    if(error){
+                              return;
+                    }
+          }
 
           console.log(`server is running on port ${port}`);
 });
